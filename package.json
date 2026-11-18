@@ -17,5 +17,6 @@
   "dependencies": { "@noble/curves": "2.4.0", "@noble/hashes": "2.4.0" },
   "repository": { "type": "git", "url": "git+https://github.com/Goldcote/pickthepunk-claim.git" },
   "homepage": "https://github.com/Goldcote/pickthepunk-claim#readme",
-  "author": "Goldcote Ltd"
+  "author": "Goldcote Ltd",
+  "license": "SEE LICENSE IN LICENSE"
 }

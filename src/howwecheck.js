@@ -72,6 +72,6 @@ It checks that the signed message is the claim message for that punk, word for w
 
 ## The code
 
-What the claim page asks your wallet for, the message, these checks and the check tool are open: ${REPO}. pickthesite runs a released version of it, named at the foot of every claim page, and the script your browser runs on a claim page (\`/site/claim.js\`) is that version's \`browser/claim.js\`, byte for byte.
+What the claim page asks your wallet for, the message, these checks and the check tool are public: ${REPO}. pickthesite runs a released version of it, named at the foot of every claim page, and the script your browser runs on a claim page (\`/site/claim.js\`) is that version's \`browser/claim.js\`, byte for byte.
 `;
 }

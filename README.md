@@ -46,6 +46,10 @@ Give a punk's number or a page's address (`1234.pickthepunk.com`). The tool read
 
 pickthepunk.com runs a tagged release of this repository, and every claim page names it at its foot. Any change comes as a new release here first.
 
+## Using this code
+
+It is public so you can check us: read it, run it and its tests, and check any page's proof with it, free. Any other use, such as claims for another collection, needs an agreement with Goldcote Ltd first: write to hello@pickthesite.com. [LICENSE](LICENSE) has the terms.
+
 ## Who
 
 Goldcote Ltd, the company named in pickthepunk's Terms. goldcote.eth is its address on Ethereum. A question, or a problem found: hello@pickthesite.com.

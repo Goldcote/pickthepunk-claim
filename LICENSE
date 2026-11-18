@@ -1,0 +1,15 @@
+Copyright 2026 Goldcote Ltd. All rights reserved.
+
+This code is public so that anyone can check what pickthepunk.com asks of a
+wallet and how it checks a proof. For that, anyone may read it, run it and its
+tests, and use its check tool on any proof, free of charge.
+
+Any other use needs a written agreement with Goldcote Ltd first. That includes
+using this code, or code based on it, for another collection, website or
+service. To agree one, write to hello@pickthesite.com.
+
+The code comes as it is, without warranty of any kind. As far as the law
+allows, Goldcote Ltd is not liable for any loss from using it.
+
+Code by others that this code uses keeps its own licence, such as
+@noble/curves and @noble/hashes (MIT).
