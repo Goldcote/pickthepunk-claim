@@ -1,0 +1,21 @@
+{
+  "name": "pickthepunk-claim",
+  "version": "1.0.0",
+  "description": "The code behind making a CryptoPunk's page yours on pickthepunk.com: what the claim page asks your wallet for, the message you sign, how a proof is checked, and a tool to check any page's proof yourself.",
+  "type": "module",
+  "exports": {
+    ".": { "types": "./src/index.d.ts", "default": "./src/index.js" },
+    "./browser/claim.js": "./browser/claim.js",
+    "./browser/wallet-entry.js": "./browser/wallet-entry.js",
+    "./package.json": "./package.json"
+  },
+  "types": "./src/index.d.ts",
+  "bin": { "pickthepunk-check": "bin/check.js" },
+  "files": ["src", "browser", "bin", "README.md", "WALLET.md", "HOW-WE-CHECK.md"],
+  "scripts": { "test": "node --test" },
+  "engines": { "node": ">=20.19" },
+  "dependencies": { "@noble/curves": "2.4.0", "@noble/hashes": "2.4.0" },
+  "repository": { "type": "git", "url": "git+https://github.com/Goldcote/pickthepunk-claim.git" },
+  "homepage": "https://github.com/Goldcote/pickthepunk-claim#readme",
+  "author": "Goldcote Ltd"
+}
