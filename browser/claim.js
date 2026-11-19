@@ -16,6 +16,29 @@
     return r.json().catch(() => ({ error: 'chain' }));
   };
   const short = (a) => `${a.slice(0, 6)}…${a.slice(-4)}`;
+  // what happens is brought into view: smoothly, or at once for someone whose device asks for less motion
+  const still = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reveal = (el) => el.scrollIntoView({ behavior: still() ? 'auto' : 'smooth', block: 'center' });
+  // a proof ends in confetti: pieces in the page's own colours fall once (the page's stylesheet draws .cl-confetti); none
+  // for less motion
+  const confetti = () => {
+    if (still()) return;
+    const sky = document.createElement('div');
+    sky.className = 'cl-confetti';
+    sky.setAttribute('aria-hidden', 'true');
+    for (let i = 0; i < 90; i++) {
+      const p = document.createElement('i');
+      p.className = `c${i % 4}`;
+      p.style.setProperty('--x', `${(Math.random() * 100).toFixed(2)}vw`);
+      p.style.setProperty('--d', `${(Math.random() * 0.7).toFixed(2)}s`);
+      p.style.setProperty('--t', `${(2 + Math.random() * 1.4).toFixed(2)}s`);
+      p.style.setProperty('--r', `${Math.round(Math.random() * 900 - 450)}deg`);
+      p.style.setProperty('--w', `${Math.round(Math.random() * 160 - 80)}px`);
+      sky.append(p);
+    }
+    document.body.append(sky);
+    setTimeout(() => sky.remove(), 4500);
+  };
 
   // "See what your wallet will show": a link to the look-before-you-connect panel opens it
   const see = document.getElementById('see');
@@ -75,11 +98,23 @@
         say(status, 'Checking it on Ethereum…');
         const v = await post(`/claim/${r.id}/sign`, { signature });
         if (v.ok) {
-          say(status, `Proved. #${id}’s page is yours: your panel link is on its way to ${email.value.trim()}.`, 'done');
+          // the end, where it can be seen: its panel and its page a click away (the panel's address comes from the
+          // server: a sign-in of its own for a new email, else the panel's front page), in view and in focus, and confetti
+          say(status, `Proved. #${id}’s page is yours.`, 'done');
           btn.disabled = true;
+          const row = document.createElement('div');
+          row.className = 'cl-done';
+          if (v.panel) { const a = document.createElement('a'); a.href = v.panel; a.className = 'cl-btn'; a.textContent = 'Open your panel'; row.append(a); }
           const see = document.createElement('a');
-          see.href = '/'; see.className = 'cl-btn'; see.textContent = `See #${id}’s page`;
-          status.after(see);
+          see.href = '/'; see.className = v.panel ? 'cl-btn2' : 'cl-btn'; see.textContent = `See #${id}’s page`;
+          row.append(see);
+          const note = document.createElement('p');
+          note.className = 'cl-small';
+          note.textContent = `Your panel link is also on its way to ${email.value.trim()}.`;
+          status.after(row, note);
+          confetti();
+          reveal(status);
+          row.querySelector('a').focus({ preventScroll: true });
         } else say(status, words(v.error, v.holder), 'bad');
       } catch (e) {
         say(status, e && e.code === 4001 ? 'You said no in your wallet: nothing was signed.' : 'Your wallet didn’t answer. Try again, or use way 2.', 'bad');
@@ -125,6 +160,11 @@
         list.append(p);
       }
       list.hidden = false;
+      // the list shows under the message, so it is brought into view and its first wallet into focus: the click visibly
+      // does something
+      reveal(list);
+      const first = list.querySelector('button');
+      if (first) first.focus({ preventScroll: true });
     });
   }
 
@@ -144,8 +184,21 @@
       setInterval(async () => {
         if (document.visibilityState !== 'visible') return;
         const r = await fetch(`/claim/${box.dataset.claim}?json`, { headers: { accept: 'application/json' }, credentials: 'same-origin' }).then((x) => x.json()).catch(() => null);
-        if (r && (r.status !== 'open' || (r.from || '') !== from)) location.reload();
+        if (r && (r.status !== 'open' || (r.from || '') !== from)) {
+          if (r.status === 'proved') try { sessionStorage.setItem('cl-proved', box.dataset.claim); } catch { /* the page still shows it */ }
+          location.reload();
+        }
       }, 8000);
+    }
+    // proved while this page watched: its end, in view and in focus, with confetti (once)
+    let seen = null;
+    try { seen = sessionStorage.getItem('cl-proved'); sessionStorage.removeItem('cl-proved'); } catch { /* no storage */ }
+    if (box.dataset.status === 'proved' && seen === box.dataset.claim) {
+      const end = document.querySelector('.cl-done') || box;
+      confetti();
+      reveal(end);
+      const a = end.querySelector('a');
+      if (a) a.focus({ preventScroll: true });
     }
   }
 })();

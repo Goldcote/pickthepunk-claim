@@ -32,7 +32,7 @@ Give a punk's number or a page's address (`1234.pickthepunk.com`). The tool read
 - `src/chain.js`: Ethereum, read and never written: who holds a punk (the CryptoPunks contract and its two wrappers), delegate.xyz's registries, contract wallets (EIP-1271), the transfers to goldcote.eth.
 - `src/eth.js`: Keccak-256, the hash a wallet signs a plain message under (EIP-191), signature recovery, checksummed addresses (EIP-55), call encoding. The curve maths is [@noble/curves](https://github.com/paulmillr/noble-curves) and the hash [@noble/hashes](https://github.com/paulmillr/noble-hashes), both audited.
 - `src/check.js` and `bin/check.js`: the check tool.
-- `src/howwecheck.js`: [HOW-WE-CHECK.md](HOW-WE-CHECK.md), also at pickthepunk.com's `/how-we-check`.
+- `src/howwecheck.js`: [HOW-WE-CHECK.md](HOW-WE-CHECK.md), also at `/how-we-check` on every punk's page (such as 1234.pickthepunk.com/how-we-check).
 - `test/`: `npm install`, then `npm test`.
 
 ## What you can check, and what you trust us for
@@ -42,7 +42,7 @@ Give a punk's number or a page's address (`1234.pickthepunk.com`). The tool read
 
 ## Versions
 
-- `v1.0.0`: the first release.
+- `v1.0.0`, 19 November 2026: the first release, with the pages. "Connect wallet" brings the wallet list into view, the proof's progress shows under the wallets, and a proof ends with confetti and its links a click away.
 
 pickthepunk.com runs a tagged release of this repository, and every claim page names it at its foot. Any change comes as a new release here first.
 
